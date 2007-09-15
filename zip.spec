@@ -14,7 +14,6 @@ Patch1: zip-2.3-noninteractivepassword+testencrypedfile.patch
 URL: http://www.info-zip.org/pub/infozip/
 License: BSD-like
 Group: Archiving/Compression
-#Packager: Guillaume Cottenceau <gc@mandrakesoft.com>
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-buildroot
 
 %description
