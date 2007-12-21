@@ -14,6 +14,7 @@ Patch1: zip-2.3-noninteractivepassword+testencrypedfile.patch
 URL: http://www.info-zip.org/pub/infozip/
 License: BSD-like
 Group: Archiving/Compression
+BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-buildroot
 
 %description
 The zip program is a compression and file packaging utility.  Zip is
