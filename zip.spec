@@ -1,6 +1,6 @@
 %define name zip
 %define version 2.32
-%define release %mkrel 1
+%define release %mkrel 2
 %define filever %(echo %version|sed s/\\\\\.//)
 
 Name: %{name}
@@ -33,7 +33,7 @@ This version support crypto encryption.
 %patch1 -p1 -b .pass
 
 %build
-make -ef unix/Makefile prefix=%{prefix} CC="gcc $RPM_OPT_FLAGS" generic_gcc
+make -ef unix/Makefile prefix=%{prefix} CC="gcc $RPM_OPT_FLAGS -D_FILE_OFFSET_BITS=64" generic_gcc
 
 %install
 rm -rf $RPM_BUILD_ROOT
