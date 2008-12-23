@@ -1,6 +1,6 @@
 %define name zip
 %define version 3.0
-%define release %mkrel 1
+%define release %mkrel 2
 %define filever %(echo %version|sed s/\\\\\.//)
 
 Name: %{name}
@@ -13,6 +13,8 @@ URL: http://www.info-zip.org/pub/infozip/
 Source0: http://dfn.dl.sourceforge.net/sourceforge/infozip/%{name}%{filever}.zip
 Patch0: zip-2.3-unforce-cflags.patch
 Patch1: zip-2.3-noninteractivepassword+testencrypedfile.patch
+Patch2: zip-3.0-format_not_a_string_literal_and_no_format_arguments.diff
+Patch3: zip-3.0-LDFLAGS.diff
 BuildRequires: bzip2-devel
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-buildroot
 
@@ -30,9 +32,11 @@ This version support crypto encryption.
 %setup -q -n %{name}%{filever}
 %patch0 -p1 -b .cflags
 %patch1 -p0 -b .pass
+%patch2 -p0 -b .format_not_a_string_literal_and_no_format_arguments
+%patch3 -p0 -b .LDFLAGS
 
 %build
-make -ef unix/Makefile prefix=%{prefix} CC="gcc %{optflags} -D_FILE_OFFSET_BITS=64" generic_gcc
+make -ef unix/Makefile prefix=%{prefix} CC="gcc %{optflags} -D_FILE_OFFSET_BITS=64" LDFLAGS="%{ldflags}" generic_gcc
 
 %install
 rm -rf %{buildroot}
