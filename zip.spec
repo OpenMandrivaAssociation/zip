@@ -1,6 +1,6 @@
 %define name zip
 %define version 3.0
-%define release %mkrel 4
+%define release %mkrel 5
 %define filever %(echo %version|sed s/\\\\\.//)
 
 Name: %{name}
