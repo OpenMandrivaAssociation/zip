@@ -1,0 +1,28 @@
+--- unix/Makefile	2008-12-23 16:54:32.000000000 +0100
++++ unix/Makefile.oden	2008-12-23 16:57:41.000000000 +0100
+@@ -61,6 +61,7 @@
+ CFLAGS = $(CFLAGS_NOOPT)
+ LFLAGS1 =
+ LFLAGS2 = -s
++LDFLAGS = 
+ 
+ # object file lists
+ OBJZ = zip.o zipfile.o zipup.o fileio.o util.o globals.o crypt.o ttyio.o \
+@@ -125,13 +126,13 @@
+ zipsman: $(ZIPS) $(ZIPMANUALs)
+ 
+ zip$E: $(OBJZ) $(OBJI) $(OBJA) $(LIB_BZ)
+-	$(BIND) -o zip$E $(LFLAGS1) $(OBJZ) $(OBJI) $(OBJA) $(LFLAGS2)
++	$(BIND) $(LDFLAGS) -o zip$E $(LFLAGS1) $(OBJZ) $(OBJI) $(OBJA) $(LFLAGS2)
+ zipnote$E: $(OBJN)
+-	$(BIND) -o zipnote$E $(LFLAGS1) $(OBJN) $(LFLAGS2)
++	$(BIND) $(LDFLAGS) -o zipnote$E $(LFLAGS1) $(OBJN) $(LFLAGS2)
+ zipcloak$E: $(OBJC) $(OCRCTB)
+-	$(BIND) -o zipcloak$E $(LFLAGS1) $(OBJC) $(LFLAGS2)
++	$(BIND) $(LDFLAGS) -o zipcloak$E $(LFLAGS1) $(OBJC) $(LFLAGS2)
+ zipsplit$E: $(OBJS)
+-	$(BIND) -o zipsplit$E $(LFLAGS1) $(OBJS) $(LFLAGS2)
++	$(BIND) $(LDFLAGS) -o zipsplit$E $(LFLAGS1) $(OBJS) $(LFLAGS2)
+ 
+ $(ZIPMANUAL): man/zip.1
+ 	nroff -man man/zip.1 | col -bx | uniq > $(ZIPMANUAL)
