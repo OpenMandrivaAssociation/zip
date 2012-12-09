@@ -1,6 +1,6 @@
 %define name zip
 %define version 3.0
-%define release %mkrel 5
+%define release %mkrel 6
 %define filever %(echo %version|sed s/\\\\\.//)
 
 Name: %{name}
@@ -54,3 +54,66 @@ rm -fr %{buildroot}
 %doc BUGS CHANGES INSTALL README TODO WHATSNEW WHERE LICENSE
 %attr(0755,root,root) %{_bindir}/*
 %{_mandir}/man1/*
+
+
+%changelog
+* Sat May 07 2011 Oden Eriksson <oeriksson@mandriva.com> 3.0-5mdv2011.0
++ Revision: 671958
+- mass rebuild
+
+* Sat Dec 04 2010 Oden Eriksson <oeriksson@mandriva.com> 3.0-4mdv2011.0
++ Revision: 608286
+- rebuild
+
+* Sun Mar 14 2010 Oden Eriksson <oeriksson@mandriva.com> 3.0-3mdv2010.1
++ Revision: 519086
+- rebuild
+
+* Tue Dec 23 2008 Oden Eriksson <oeriksson@mandriva.com> 3.0-2mdv2009.1
++ Revision: 317973
+- fix build with -Werror=format-security (P2)
+- use %%ldflags (P3)
+
+* Mon Aug 18 2008 Oden Eriksson <oeriksson@mandriva.com> 3.0-1mdv2009.0
++ Revision: 273212
+- 3.0
+- rediffed P1
+- drop S1, zcrypt is included
+- fix url
+
+* Mon Feb 25 2008 Olivier Blin <oblin@mandriva.com> 2.32-2mdv2008.1
++ Revision: 174802
+- build with _FILE_OFFSET_BITS=64 (#37178)
+- restore BuildRoot
+
+  + Thierry Vignaud <tv@mandriva.org>
+    - kill re-definition of %%buildroot on Pixel's request
+    - kill packager tag
+
+
+* Thu Nov 16 2006 Olivier Blin <oblin@mandriva.com> 2.32-1mdv2007.0
++ Revision: 85007
+- fix patchlevel
+- rediff patch1
+- 2.32
+- bunzip2 sources
+- Import zip
+
+* Sat Dec 31 2005 Stefan van der Eijk <stefan@eijk.nu> 2.31-2mdk
+- %%mkrel
+- rebuild
+- comment out Packager tag
+
+* Tue Jun 07 2005 Götz Waschk <waschk@mandriva.org> 2.31-1mdk
+- drop patch 2, CAN-2004-1010 was fixed upstream
+- new version
+
+* Wed Dec 15 2004 Götz Waschk <waschk@linux-mandrake.com> 2.3-13mdk
+- add man page symlinks
+
+* Sun Nov 28 2004 Olivier Blin <blino@mandrake.org> 2.3-12mdk
+- security update for CAN-2004-1010
+
+* Tue Sep 14 2004 Giuseppe Ghibò <ghibo@mandrakesoft.com> 2.3-11mdk
+- Rebuilt.
+
