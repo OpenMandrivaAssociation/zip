@@ -33,7 +33,7 @@ This version support crypto encryption.
 %patch3 -p0 -b .LDFLAGS
 
 %build
-make -ef unix/Makefile prefix=%{prefix} CC="gcc %{optflags} -D_FILE_OFFSET_BITS=64" LDFLAGS="%{ldflags}" generic_gcc
+make -ef unix/Makefile prefix=%{prefix} CC="%{__cc} %{optflags} -D_FILE_OFFSET_BITS=64" LDFLAGS="%{ldflags}" generic_gcc
 
 %install
 mkdir -p %{buildroot}%{_bindir}
