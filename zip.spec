@@ -1,10 +1,9 @@
-%define version 3.0
 %define filever %(echo %version|sed s/\\\\\.//)
 
 Name:		zip
 Summary:	A file compression and packaging utility compatible with PKZIP
-Version:	%{version}
-Release:	15
+Version:	3.0
+Release:	16
 License:	BSD-like
 Group:		Archiving/Compression
 URL:		http://www.info-zip.org/pub/infozip/
@@ -33,7 +32,7 @@ This version support crypto encryption.
 %patch3 -p0 -b .LDFLAGS
 
 %build
-make -ef unix/Makefile prefix=%{prefix} CC="%{__cc} %{optflags} -D_FILE_OFFSET_BITS=64" LDFLAGS="%{ldflags}" generic_gcc
+make -ef unix/Makefile prefix=%{prefix} CC="%{__cc} %{optflags} -D_FILE_OFFSET_BITS=64" CPP="%{__cc} -E" LDFLAGS="%{ldflags}" generic
 
 %install
 mkdir -p %{buildroot}%{_bindir}
