@@ -3,7 +3,7 @@
 Name:		zip
 Summary:	A file compression and packaging utility compatible with PKZIP
 Version:	3.0
-Release:	19
+Release:	20
 License:	BSD-like
 Group:		Archiving/Compression
 Url:		http://www.info-zip.org/pub/infozip/
