@@ -1,18 +1,15 @@
-%define filever %(echo %{version}|sed s/\\\\\.//)
+%define filever %(echo -n %{version} |cut -d. -f1-2 |sed -e 's,\\.,,')d%(echo -n %{version} |cut -d. -f3)_s%(echo -n %{version} |cut -d. -f4)
 
 Name:		zip
 Summary:	A file compression and packaging utility compatible with PKZIP
-Version:	3.0
-Release:	20
+Version:	3.1.34.3
+Release:	1
 License:	BSD-like
 Group:		Archiving/Compression
 Url:		http://www.info-zip.org/pub/infozip/
-Source0:	http://dfn.dl.sourceforge.net/sourceforge/infozip/%{name}%{filever}.zip
+Source0:	http://antinode.info/ftp/info-zip/zip%{filever}.zip
 Source100:	%{name}.rpmlintrc
 Patch0:		zip-2.3-unforce-cflags.patch
-Patch1:		zip-2.3-noninteractivepassword+testencrypedfile.patch
-Patch2:		zip-3.0-format_not_a_string_literal_and_no_format_arguments.diff
-Patch3:		zip-3.0-LDFLAGS.diff
 BuildRequires:	bzip2-devel
 
 %description
@@ -26,20 +23,17 @@ This version support crypto encryption.
 
 %prep
 
-%setup -qn %{name}%{filever}
+%setup -qn %{name}%(echo -n %{filever} |cut -d_ -f1)
 %patch0 -p1 -b .cflags
-%patch1 -p0 -b .pass
-%patch2 -p0 -b .format_not_a_string_literal_and_no_format_arguments
-%patch3 -p0 -b .LDFLAGS
 
 %build
-make -ef unix/Makefile prefix=%{prefix} CC="%{__cc} %{optflags} -D_FILE_OFFSET_BITS=64" CPP="%{__cc} -E" LDFLAGS="%{ldflags}" generic
+make -ef unix/Makefile prefix=%{prefix} CC="%{__cc} %{optflags} -D_FILE_OFFSET_BITS=64" CPP="%{__cc} -E" LDFLAGS="%{ldflags}" PREFIX=%{_prefix} generic
 
 %install
 mkdir -p %{buildroot}%{_bindir}
 mkdir -p %{buildroot}%{_mandir}/man1
 
-%makeinstall -f unix/Makefile MANDIR=%{buildroot}%{_mandir}/man1 INSTALL=install
+%makeinstall -f unix/Makefile MANDIR=%{buildroot}%{_mandir}/man1 PREFIX=%{buildroot}%{_prefix} INSTALL=install
 
 %files
 %doc BUGS CHANGES INSTALL README TODO WHATSNEW WHERE LICENSE
