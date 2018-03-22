@@ -1,12 +1,11 @@
-diff -up zip31d34/unix/Makefile.cflags zip31d34/unix/Makefile
---- zip31d34/unix/Makefile.cflags	2018-03-21 04:44:05.180150346 +0100
-+++ zip31d34/unix/Makefile	2018-03-21 04:44:30.512138920 +0100
-@@ -380,7 +380,7 @@ CC      = cc
- CC_BZ   = $(CC)
- 
- CF_NOOPT = -I. -DUNIX $(LOCAL_ZIP)
--CFLAGS  = -O
-+CFLAGS  =
- CF      = $(CFLAGS) $(CF_NOOPT)         # C compiler flags (core components)
- CF_BZ   = $(CF)                         # C compiler flags (BZIP2 components)
+--- zip-2.32/unix/Makefile.orig	2006-04-22 19:52:18.000000000 -0400
++++ zip-2.32/unix/Makefile	2006-11-16 12:09:25.000000000 -0500
+@@ -47,7 +47,7 @@
+ #   LFLAGS1   flags after output file spec, before obj file list
+ #   LFLAGS2   flags after obj file list (libraries, etc)
+ CFLAGS_NOOPT = -I. -DUNIX $(LOCAL_ZIP)
+-CFLAGS = -O2 $(CFLAGS_NOOPT)
++CFLAGS = $(CFLAGS_NOOPT)
+ LFLAGS1 =
+ LFLAGS2 = -s
  
