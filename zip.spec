@@ -3,7 +3,7 @@
 Name:		zip
 Summary:	A file compression and packaging utility compatible with PKZIP
 Version:	3.0
-Release:	22
+Release:	23
 License:	BSD-like
 Group:		Archiving/Compression
 Url:		http://www.info-zip.org/pub/infozip/
@@ -13,6 +13,7 @@ Patch0:		zip-2.3-unforce-cflags.patch
 Patch1:		zip-2.3-noninteractivepassword+testencrypedfile.patch
 Patch2:		zip-3.0-format_not_a_string_literal_and_no_format_arguments.diff
 Patch3:		zip-3.0-LDFLAGS.diff
+Patch4:		https://raw.githubusercontent.com/gentoo/gentoo/master/app-arch/zip/files/zip-3.0-clang-15-configure-tests.patch
 BuildRequires:	bzip2-devel
 
 %description
@@ -31,6 +32,7 @@ This version support crypto encryption.
 %patch1 -p0 -b .pass
 %patch2 -p0 -b .format_not_a_string_literal_and_no_format_arguments
 %patch3 -p0 -b .LDFLAGS
+%patch4 -p1 -b .clang15~
 
 %build
 make -ef unix/Makefile prefix=%{prefix} CC="%{__cc} %{optflags} -D_FILE_OFFSET_BITS=64" CPP="%{__cc} -E" LDFLAGS="%{ldflags}" generic
