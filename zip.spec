@@ -1,4 +1,9 @@
 %define filever %(echo %{version}|sed s/\\\\\.//)
+%if %{cross_compiling}
+%bcond_with pgo
+%else
+%bcond_without pgo
+%endif
 
 Name:		zip
 Summary:	A file compression and packaging utility compatible with PKZIP
@@ -27,15 +32,19 @@ This version support crypto encryption.
 
 %prep
 
-%setup -qn %{name}%{filever}
-%patch0 -p1 -b .cflags
-%patch1 -p0 -b .pass
-%patch2 -p0 -b .format_not_a_string_literal_and_no_format_arguments
-%patch3 -p0 -b .LDFLAGS
-%patch4 -p1 -b .clang15~
+%autosetup -p1 -n %{name}%{filever}
 
 %build
-make -ef unix/Makefile prefix=%{prefix} CC="%{__cc} %{optflags} -D_FILE_OFFSET_BITS=64" CPP="%{__cc} -E" LDFLAGS="%{ldflags}" generic
+%if %{with pgo}
+make -ef unix/Makefile prefix=%{prefix} CC="%{__cc} %{optflags} -D_FILE_OFFSET_BITS=64 -fprofile-generate" CPP="%{__cc} -E" LDFLAGS="%{build_ldflags} -fprofile-generate" generic
+./zip -9r __pgo_sources.zip *
+./zipnote __pgo_sources.zip
+llvm-profdata merge --output=zip.pgo *.profraw
+make -ef unix/Makefile clean
+make -ef unix/Makefile prefix=%{prefix} CC="%{__cc} %{optflags} -D_FILE_OFFSET_BITS=64 -fprofile-use=zip.pgo" CPP="%{__cc} -E" LDFLAGS="%{build_ldflags} -fprofile-use=zip.pgo" generic
+%else
+make -ef unix/Makefile prefix=%{prefix} CC="%{__cc} %{optflags} -D_FILE_OFFSET_BITS=64" CPP="%{__cc} -E" LDFLAGS="%{build_ldflags}" generic
+%endif
 
 %install
 mkdir -p %{buildroot}%{_bindir}
