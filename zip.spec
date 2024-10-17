@@ -11,7 +11,7 @@ Version:	3.0
 Release:	24
 License:	BSD-like
 Group:		Archiving/Compression
-Url:		http://www.info-zip.org/pub/infozip/
+Url:		https://www.info-zip.org/pub/infozip/
 Source0:	http://dfn.dl.sourceforge.net/sourceforge/infozip/%{name}%{filever}.zip
 Source100:	%{name}.rpmlintrc
 Patch0:		zip-2.3-unforce-cflags.patch
