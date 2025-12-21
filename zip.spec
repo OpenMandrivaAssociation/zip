@@ -19,6 +19,7 @@ Patch1:		zip-2.3-noninteractivepassword+testencrypedfile.patch
 Patch2:		zip-3.0-format_not_a_string_literal_and_no_format_arguments.diff
 Patch3:		zip-3.0-LDFLAGS.diff
 Patch4:		https://raw.githubusercontent.com/gentoo/gentoo/master/app-arch/zip/files/zip-3.0-clang-15-configure-tests.patch
+BuildRequires:	make
 BuildRequires:	bzip2-devel
 
 %description
